@@ -1,0 +1,24 @@
+name: "Board-Builder"
+
+## Trigger
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+*"
+
+# Global version
+env:
+  REPO_URI: ${{ github.server_url }}/${{ github.repository }}
+  VERSION: ${{ github.ref_name }}
+  BUILD: ${{ github.repository_owner }}-samd-adafruit-${{ github.ref_name }}
+  ARCHIVE: ${{ github.repository_owner }}-samd-adafruit-${{ github.ref_name }}.tar.bz2
+  PACKAGE-NAME: package_0x3508a-samd-adafruit_index.json
+
+jobs:
+  arduino-samd-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
